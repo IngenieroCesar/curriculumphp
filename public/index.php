@@ -1,20 +1,9 @@
 <?php
+
+include('jobs.php');
+
 $name = 'Cesar Garzón';
-
-$jobs = [
-    [
-       'title' => 'PHP Developer',
-       'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.'
-    ],
-    [
-     'title' => 'Phyton Dev',
-    ],
-    [
-      'title' => ' Devops', 
-    ]
-  ];
-
-
+$limitMonths = 72;
 
 ?>
 
@@ -67,27 +56,30 @@ $jobs = [
           <h3 class="border-bottom-gray" >Work Experience</h3>
           <ul>
             <?php
-            
+              $totalMonts = 0;
               for($idx = 0; $idx < count($jobs); $idx ++ ){
-                
-                echo ' <li class="work-position">';
-                echo ' <h5>' . $jobs[$idx]['title'] . '</h5>';
-                echo ' <p>' . $jobs[$idx]['description'] . '</p>';
-                echo ' <strong>Achievements:</strong>';
-                echo ' <ul>';
-                echo ' <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>';
-                echo ' <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>';
-                echo ' <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>';
-                echo ' </ul>';
-                echo ' </li>';
+                $totalMonts += $jobs[$idx]->months;
 
-                
+                if($totalMonts > $limitMonths){
+                break;
+                }
+
+                printElement($jobs[$idx]);
               }
             ?>
           </ul>
         </div>
         <div>
             <h3 class="border-bottom-gray">Projects</h3>
+
+            <?php
+
+              for($idx = 0; $idx < count($projects); $idx ++ ){
+
+                printElement($projects[$idx]);
+              }
+            ?>
+
             <div class="project">
                 <h5>Project X</h5>
                 <div class="row">
