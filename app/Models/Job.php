@@ -1,17 +1,18 @@
 <?php
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 
 //Class name is equal to file name
-class Job extends BaseElement {
+class Job extends Model {
+    protected $table = 'jobs';
 
     //Magic Methods
     //Parent constructor inheritance
-    public function __construct($title, $description){
-        $newTitle = 'Job: ' . $title;
-        parent::__construct($newTitle, $description);
-    }
-
+        // public function __construct($title, $description){
+        //     $newTitle = 'Job: ' . $title;
+        //     parent::__construct($newTitle, $description);
+        // }
 
     //Methods
     //Polymorphism, because we rewrite the method written in his father.

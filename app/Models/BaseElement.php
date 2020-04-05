@@ -9,8 +9,8 @@ class BaseElement implements Printable{
     //protected property is used to give access to children and the parent
     private $title;
     public $description;
-    public $visible = true;
-    public $months;
+    public $visible = false;
+    public $months = 0;
   
 //Magic Methods
     public function __construct($title, $description){
