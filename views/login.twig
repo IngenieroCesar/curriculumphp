@@ -1,0 +1,32 @@
+{% extends "layout.twig" %}
+
+{% block title %}
+<title>Login</title>
+{% endblock %}
+
+{% block content %}
+    <h3>Login</h3>
+    <div class="alert alert-primary" role="alert">
+        {{responseMessage}}
+    </div>
+    <form action="/auth" method="post" accept-charset="UTF-8">
+        <input type="hidden" name="action" value="users/login">
+    
+        <h3><label for="loginName">Username or email</label></h3>
+        <input type="text" name="loginName">
+    
+        <h3><label for="password">Password</label></h3>
+        <input type="password" name="password"><br>
+    
+        <label>
+            <input type="checkbox" name="rememberMe" value="1">
+            Remember me
+        </label><br>
+        <button type="submit">Login</button>
+    
+        {% if errorMessage is defined %}
+            <p>{{ errorMessage }}</p>
+        {% endif %}
+    </form>
+    
+{% endblock %}
