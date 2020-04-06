@@ -1,0 +1,20 @@
+{% extends "layout.twig" %}
+
+{% block title %}
+<title>Add Project</title>
+{% endblock %}
+
+{% block content %}
+
+    <h3>Add Project</h3>
+    <div class="alert alert-primary" role="alert">
+        {{responseMessage}}
+    </div>
+    <form action="/projects/add" method="post">
+        <label for="">Title</label>
+        <input type="text" name="title"><br>
+        <label for="">Description</label>
+        <input type="text" name="description"><br>
+        <button type="submit">Save</button>
+    </form>
+{% endblock %}

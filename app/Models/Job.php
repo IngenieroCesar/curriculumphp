@@ -21,7 +21,7 @@ class Job extends Model {
         $extraMonths = $this->months%12;
       
         if($years == 0){
-          return "Job duration; $extraMonths months";
+          return "Job duration: $extraMonths months";
         }else if($years != 0){
           return "Job duration: $years years";
         }

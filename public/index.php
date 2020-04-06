@@ -43,14 +43,40 @@ $routerContainer = new RouterContainer();
 //create route map
 $map = $routerContainer->getMap();
 //Create routes
-$map->get('index', '/', '../index.php');
-$map->get('addJobs', '/jobs/add', '../addJob.php');
-$map->get('addProjects', '/projects/add', '../addPŕojects.php');
+$map->get('index', '/', [
+    'controller' => 'App\Controllers\IndexController',
+    'action' => 'indexAction'
+]);
+$map->get('addJobs', '/jobs/add', [
+    'controller' => 'App\Controllers\JobsController',
+    'action' => 'getAddJobAction'
+]);
+$map->post('saveJobs', '/jobs/add', [
+    'controller' => 'App\Controllers\JobsController',
+    'action' => 'getAddJobAction'
+]);
+$map->get('addProjects', '/projects/add', [
+    'controller' => 'App\Controllers\ProjectsController',
+    'action' => 'getAddProjectAction'
+]);
+$map->post('saveProjects', '/projects/add', [
+    'controller' => 'App\Controllers\ProjectsController',
+    'action' => 'getAddProjectAction'
+]);
 //this matcher compair our map with request
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);
+
 if(!$route){
     echo 'No Such Directory';
 }else {
-    require $route->handler;
+    //Redirect to our controller action.
+    $handlerData = $route->handler;
+    $controllerName = $handlerData['controller'];
+    $actionName = $handlerData['action'];
+    //PHP tambien interpreta las cadenas como si fuecen los nombres de las clases!!! :O
+    $controller = new $controllerName;
+    $response = $controller->$actionName($request);
+
+    echo $response->getBody();
 }
