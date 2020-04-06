@@ -18,11 +18,28 @@ public function getAddJobAction($request){
         try{
             $jobValidator->assert($postData);  
                 $postData = $request->getParsedBody() ;
+
+                $files = $request->getUploadedFiles();
+                $logo = $files['logo'];
+
                 $job = new Job();
                 $job->title = $postData['title'];
                 $job->description = $postData['description'];
                 $job->visible = true;
                 $job->months = 6;
+
+                //Para guardar el nombre de la imagen que corresponde
+                //debemos asegurarnos que viene el archivo, si no viene dejamos a none como
+                //nombre por default
+                if($logo->getError() == UPLOAD_ERR_OK){
+                    //This interface has been declarate in psr7
+                    $fileName = $logo->getClientFilename();
+                    $logo->moveTo("uploads/$fileName");
+                    $job->img = $fileName;
+                }else {
+                    $job->img = 'None';
+                }
+                
                 $job->save(); 
             
                 $responseMessage = 'Job successfully created';
